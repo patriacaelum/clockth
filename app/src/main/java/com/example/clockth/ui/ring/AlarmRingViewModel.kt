@@ -45,15 +45,20 @@ class AlarmRingViewModel(
         if (busy) return
         val typed = _input.value.toIntOrNull()
         if (typed == _question.value.answer) {
-            busy = true
-            viewModelScope.launch {
-                repository.dismiss(alarmId, kind)
-                _finished.value = true
-            }
+            dismiss(alarmId, kind)
         } else {
             _wrong.value = true
             _input.value = ""
             _question.value = challenge.next()
+        }
+    }
+
+    fun dismiss(alarmId: Long, kind: FireKind) {
+        if (busy) return
+        busy = true
+        viewModelScope.launch {
+            repository.dismiss(alarmId, kind)
+            _finished.value = true
         }
     }
 

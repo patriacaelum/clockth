@@ -104,6 +104,7 @@ class AlarmStore(context: Context) : AlarmStorePort {
             .put("wakeCheckEnabled", alarm.wakeCheckEnabled)
             .put("wakeCheckMinutes", alarm.wakeCheckMinutes)
             .put("vibrate", alarm.vibrate)
+            .put("mathChallengeEnabled", alarm.mathChallengeEnabled)
             .put("soundUri", alarm.soundUri ?: JSONObject.NULL)
             .put("fadeInSeconds", alarm.fadeInSeconds)
             .put("pendingKind", alarm.pendingKind.name)
@@ -129,6 +130,7 @@ class AlarmStore(context: Context) : AlarmStorePort {
             wakeCheckEnabled = json.optBoolean("wakeCheckEnabled", true),
             wakeCheckMinutes = json.optInt("wakeCheckMinutes", 8),
             vibrate = json.optBoolean("vibrate", true),
+            mathChallengeEnabled = json.optBoolean("mathChallengeEnabled", true),
             soundUri = json.optionalString("soundUri"),
             fadeInSeconds = json.optInt("fadeInSeconds", 0).coerceIn(0, 120),
             pendingKind = runCatching {

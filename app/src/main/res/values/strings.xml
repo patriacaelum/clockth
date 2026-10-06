@@ -7,6 +7,7 @@
     <string name="snooze_ring_title">Snoozed alarm</string>
     <string name="wake_check_notification">Still awake? Alarm was at %1$s</string>
     <string name="alarm_ringing_notification">Alarm for %1$s — solve to dismiss</string>
+    <string name="alarm_ringing_notification_simple">Alarm for %1$s</string>
     <string name="add_alarm">Add alarm</string>
     <string name="save_alarm">Save</string>
     <string name="delete_alarm">Delete alarm</string>
@@ -17,10 +18,12 @@
     <string name="snooze_minutes">Snooze · %1$d min</string>
     <string name="wake_check">Wake check</string>
     <string name="wake_check_minutes">Check again after %1$d min</string>
-    <string name="wake_check_helper">After you solve the math question, Clockth rings again so you cannot fall back asleep.</string>
+    <string name="wake_check_helper">After you stop the alarm, Clockth rings again so you cannot fall back asleep.</string>
+    <string name="math_challenge">Math question</string>
+    <string name="math_challenge_helper">Solve a short arithmetic question to stop the alarm.</string>
     <string name="vibrate">Vibrate</string>
     <string name="empty_alarms_title">No alarms yet</string>
-    <string name="empty_alarms_body">Add a one-time or repeating alarm. Stopping it requires a math question.</string>
+    <string name="empty_alarms_body">Add a one-time or repeating alarm. You can require a math question to stop it.</string>
     <string name="next_alarm">Next alarm · %1$s</string>
     <string name="next_wake_check">Next wake check · %1$s</string>
     <string name="cancel_next_alarm">Cancel next alarm</string>
@@ -28,6 +31,8 @@
     <string name="cancel_snooze">Cancel snooze</string>
     <string name="skip_next_alarm">Skip next</string>
     <string name="solve_to_dismiss">Solve to turn this off</string>
+    <string name="tap_to_stop">Tap stop to turn this off</string>
+    <string name="stop_alarm">Stop alarm</string>
     <string name="still_awake">Still awake?</string>
     <string name="wrong_answer">Not quite — new question</string>
     <string name="snooze_action">Snooze %1$d min</string>

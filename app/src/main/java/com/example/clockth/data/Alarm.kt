@@ -13,6 +13,7 @@ data class Alarm(
     val wakeCheckEnabled: Boolean = true,
     val wakeCheckMinutes: Int = 8,
     val vibrate: Boolean = true,
+    val mathChallengeEnabled: Boolean = true,
     val soundUri: String? = null,
     val fadeInSeconds: Int = 0,
     val pendingKind: FireKind = FireKind.NONE,

@@ -42,6 +42,21 @@ class AlarmRepositoryTest {
     }
 
     @Test
+    fun saveKeepsMathChallengeDisabled() = runTest {
+        val store = InMemoryAlarmStore()
+        val scheduler = RecordingScheduler()
+        val repo = AlarmRepository(store, scheduler) { 5_000L }
+        val saved = repo.save(
+            Alarm(
+                hour = 6,
+                minute = 30,
+                mathChallengeEnabled = false,
+            ),
+        )
+        assertEquals(false, saved.mathChallengeEnabled)
+    }
+
+    @Test
     fun snoozeSchedulesFromNow() = runTest {
         val store = InMemoryAlarmStore()
         val scheduler = RecordingScheduler()

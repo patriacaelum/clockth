@@ -171,6 +171,37 @@ fun AlarmEditorScreen(
             )
 
             Spacer(Modifier.height(24.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .toggleable(
+                        value = state.mathChallengeEnabled,
+                        role = Role.Switch,
+                        onValueChange = { value ->
+                            viewModel.update { it.copy(mathChallengeEnabled = value) }
+                        },
+                    )
+                    .padding(vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        stringResource(R.string.math_challenge),
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                    Text(
+                        stringResource(R.string.math_challenge_helper),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                Switch(
+                    checked = state.mathChallengeEnabled,
+                    onCheckedChange = null,
+                )
+            }
+
+            Spacer(Modifier.height(8.dp))
             Text(
                 stringResource(R.string.snooze_minutes, state.snoozeMinutes),
                 style = MaterialTheme.typography.titleMedium,

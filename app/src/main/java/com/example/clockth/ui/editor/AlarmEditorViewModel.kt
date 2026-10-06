@@ -25,6 +25,7 @@ data class EditorState(
     val wakeCheckEnabled: Boolean = true,
     val wakeCheckMinutes: Int = 8,
     val vibrate: Boolean = true,
+    val mathChallengeEnabled: Boolean = true,
     val soundUri: String? = null,
     val fadeInSeconds: Int = 0,
     val isNew: Boolean = true,
@@ -54,6 +55,7 @@ class AlarmEditorViewModel(
                     wakeCheckEnabled = existing.wakeCheckEnabled,
                     wakeCheckMinutes = existing.wakeCheckMinutes,
                     vibrate = existing.vibrate,
+                    mathChallengeEnabled = existing.mathChallengeEnabled,
                     soundUri = existing.soundUri,
                     fadeInSeconds = existing.fadeInSeconds,
                     isNew = false,
@@ -89,6 +91,7 @@ class AlarmEditorViewModel(
                 wakeCheckEnabled = s.wakeCheckEnabled,
                 wakeCheckMinutes = s.wakeCheckMinutes.coerceIn(1, 30),
                 vibrate = s.vibrate,
+                mathChallengeEnabled = s.mathChallengeEnabled,
                 soundUri = s.soundUri,
                 fadeInSeconds = s.fadeInSeconds.coerceIn(0, 120),
             )

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
@@ -81,39 +82,64 @@ fun AlarmRingScreen(
             style = MaterialTheme.typography.titleLarge,
         )
         Spacer(Modifier.height(24.dp))
-        Text(
-            text = if (wrong) {
-                stringResource(R.string.wrong_answer)
-            } else {
-                stringResource(R.string.solve_to_dismiss)
-            },
-            color = promptColor,
-            style = MaterialTheme.typography.bodyLarge,
-        )
-        Spacer(Modifier.height(8.dp))
-        Text(
-            text = question.prompt,
-            color = Cream,
-            fontSize = 42.sp,
-            fontWeight = FontWeight.Medium,
-        )
-        Spacer(Modifier.height(8.dp))
-        Text(
-            text = input.ifEmpty { " " },
-            color = Amber,
-            fontSize = 36.sp,
-            fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth(),
-        )
+        if (alarm.mathChallengeEnabled) {
+            Text(
+                text = if (wrong) {
+                    stringResource(R.string.wrong_answer)
+                } else {
+                    stringResource(R.string.solve_to_dismiss)
+                },
+                color = promptColor,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            Spacer(Modifier.height(8.dp))
+            Text(
+                text = question.prompt,
+                color = Cream,
+                fontSize = 42.sp,
+                fontWeight = FontWeight.Medium,
+            )
+            Spacer(Modifier.height(8.dp))
+            Text(
+                text = input.ifEmpty { " " },
+                color = Amber,
+                fontSize = 36.sp,
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
+            )
 
-        Spacer(Modifier.weight(1f))
+            Spacer(Modifier.weight(1f))
 
-        Keypad(
-            onDigit = viewModel::onDigit,
-            onBackspace = viewModel::onBackspace,
-            onSubmit = { viewModel.submit(alarm.id, kind) },
-        )
+            Keypad(
+                onDigit = viewModel::onDigit,
+                onBackspace = viewModel::onBackspace,
+                onSubmit = { viewModel.submit(alarm.id, kind) },
+            )
+        } else {
+            Text(
+                text = stringResource(R.string.tap_to_stop),
+                color = Cream,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            Spacer(Modifier.weight(1f))
+            Button(
+                onClick = { viewModel.dismiss(alarm.id, kind) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(64.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Amber,
+                    contentColor = Navy,
+                ),
+            ) {
+                Text(
+                    text = stringResource(R.string.stop_alarm),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.SemiBold,
+                )
+            }
+        }
 
         Spacer(Modifier.height(16.dp))
         TextButton(onClick = { viewModel.snooze(alarm.id) }) {

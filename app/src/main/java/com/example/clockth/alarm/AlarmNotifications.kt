@@ -39,9 +39,10 @@ object AlarmNotifications {
             else -> alarm.label.ifBlank { context.getString(R.string.default_alarm_label) }
         }
         val time = AlarmTimeFormatter.formatClock(context, alarm.hour, alarm.minute)
-        val text = when (kind) {
-            FireKind.WAKE_CHECK -> context.getString(R.string.wake_check_notification, time)
-            else -> context.getString(R.string.alarm_ringing_notification, time)
+        val text = when {
+            kind == FireKind.WAKE_CHECK -> context.getString(R.string.wake_check_notification, time)
+            alarm.mathChallengeEnabled -> context.getString(R.string.alarm_ringing_notification, time)
+            else -> context.getString(R.string.alarm_ringing_notification_simple, time)
         }
         val fullScreen = AlarmIntents.ringActivity(context, alarm.id, kind)
         return NotificationCompat.Builder(context, CHANNEL_ID)
