@@ -1,0 +1,15 @@
+<resources>
+    <style name="Theme.Clockth" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/clockth_bg</item>
+        <item name="android:statusBarColor">@color/clockth_bg</item>
+        <item name="android:navigationBarColor">@color/clockth_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:colorPrimary">@color/clockth_amber</item>
+    </style>
+
+    <style name="Theme.Clockth.Ring" parent="Theme.Clockth">
+        <item name="android:windowShowWallpaper">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:keepScreenOn">true</item>
+    </style>
+</resources>
