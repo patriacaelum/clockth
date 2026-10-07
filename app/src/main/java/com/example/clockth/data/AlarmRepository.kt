@@ -18,6 +18,8 @@ class AlarmRepository(
 
     suspend fun get(id: Long): Alarm? = store.get(id)
 
+    suspend fun latestCreated(): Alarm? = store.getAll().maxByOrNull { it.id }
+
     suspend fun save(draft: Alarm): Alarm {
         val persisted = store.upsert(draft)
         scheduler.cancelAll(persisted.id)

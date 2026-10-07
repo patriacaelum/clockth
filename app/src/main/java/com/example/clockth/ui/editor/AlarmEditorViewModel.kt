@@ -64,10 +64,10 @@ class AlarmEditorViewModel(
             } else {
                 val cal = Calendar.getInstance()
                 cal.add(Calendar.HOUR_OF_DAY, 1)
-                _state.value = EditorState(
+                _state.value = defaultNewEditorState(
+                    lastCreated = repository.latestCreated(),
                     hour = cal.get(Calendar.HOUR_OF_DAY),
                     minute = 0,
-                    loaded = true,
                 )
             }
         }
@@ -121,4 +121,28 @@ class AlarmEditorViewModel(
             }
         }
     }
+}
+
+internal fun defaultNewEditorState(
+    lastCreated: Alarm?,
+    hour: Int,
+    minute: Int,
+): EditorState {
+    if (lastCreated == null) {
+        return EditorState(hour = hour, minute = minute, loaded = true)
+    }
+    return EditorState(
+        hour = hour,
+        minute = minute,
+        label = lastCreated.label,
+        repeatDays = lastCreated.repeatDays,
+        snoozeMinutes = lastCreated.snoozeMinutes,
+        wakeCheckEnabled = lastCreated.wakeCheckEnabled,
+        wakeCheckMinutes = lastCreated.wakeCheckMinutes,
+        vibrate = lastCreated.vibrate,
+        mathChallengeEnabled = lastCreated.mathChallengeEnabled,
+        soundUri = lastCreated.soundUri,
+        fadeInSeconds = lastCreated.fadeInSeconds,
+        loaded = true,
+    )
 }

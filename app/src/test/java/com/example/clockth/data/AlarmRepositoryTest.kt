@@ -241,6 +241,28 @@ class AlarmRepositoryTest {
     }
 
     @Test
+    fun latestCreatedReturnsHighestId() = runTest {
+        val store = InMemoryAlarmStore()
+        val scheduler = RecordingScheduler()
+        val repo = AlarmRepository(store, scheduler) { 5_000L }
+        assertNull(repo.latestCreated())
+        val first = repo.save(Alarm(hour = 7, minute = 0, label = "first"))
+        repo.save(
+            Alarm(
+                hour = 8,
+                minute = 0,
+                label = "second",
+                snoozeMinutes = 10,
+            ),
+        )
+        val latest = repo.latestCreated()
+        assertEquals("second", latest?.label)
+        assertEquals(10, latest?.snoozeMinutes)
+        repo.delete(latest!!.id)
+        assertEquals(first.id, repo.latestCreated()?.id)
+    }
+
+    @Test
     fun disableCancelsSchedules() = runTest {
         val store = InMemoryAlarmStore()
         val scheduler = RecordingScheduler()
