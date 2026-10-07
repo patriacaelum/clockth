@@ -24,6 +24,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -129,6 +130,26 @@ fun AlarmEditorScreen(
             )
             TextButton(onClick = { showPicker = true }) {
                 Text(stringResource(R.string.change_time))
+            }
+            if (state.isNew) {
+                Spacer(Modifier.height(4.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    val shortcuts = listOf(
+                        30 to R.string.time_in_30_min,
+                        60 to R.string.time_in_1_hour,
+                        120 to R.string.time_in_2_hours,
+                    )
+                    shortcuts.forEach { (minutes, labelRes) ->
+                        AssistChip(
+                            onClick = { viewModel.setTimeFromNow(minutes) },
+                            label = { Text(stringResource(labelRes)) },
+                            modifier = Modifier.weight(1f),
+                        )
+                    }
+                }
             }
 
             Spacer(Modifier.height(16.dp))

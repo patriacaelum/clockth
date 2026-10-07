@@ -46,6 +46,9 @@
     <string name="keypad_backspace">Delete digit</string>
     <string name="keypad_submit">Submit answer</string>
     <string name="change_time">Change time</string>
+    <string name="time_in_30_min">In 30 min</string>
+    <string name="time_in_1_hour">In 1 hour</string>
+    <string name="time_in_2_hours">In 2 hours</string>
     <string name="back">Back</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>

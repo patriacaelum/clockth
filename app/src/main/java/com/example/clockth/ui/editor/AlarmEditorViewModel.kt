@@ -77,6 +77,11 @@ class AlarmEditorViewModel(
         _state.update(transform)
     }
 
+    fun setTimeFromNow(offsetMinutes: Int) {
+        val time = clockTimeAfter(System.currentTimeMillis(), offsetMinutes)
+        update { it.copy(hour = time.hour, minute = time.minute) }
+    }
+
     fun save() {
         viewModelScope.launch {
             val s = _state.value
@@ -121,6 +126,17 @@ class AlarmEditorViewModel(
             }
         }
     }
+}
+
+internal data class ClockTime(val hour: Int, val minute: Int)
+
+internal fun clockTimeAfter(nowMillis: Long, offsetMinutes: Int): ClockTime {
+    val cal = Calendar.getInstance().apply { timeInMillis = nowMillis }
+    cal.add(Calendar.MINUTE, offsetMinutes)
+    return ClockTime(
+        hour = cal.get(Calendar.HOUR_OF_DAY),
+        minute = cal.get(Calendar.MINUTE),
+    )
 }
 
 internal fun defaultNewEditorState(

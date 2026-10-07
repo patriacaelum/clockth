@@ -5,6 +5,7 @@ import com.example.clockth.data.DaysOfWeek
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.util.Calendar
 
 class AlarmEditorDefaultsTest {
     @Test
@@ -56,4 +57,32 @@ class AlarmEditorDefaultsTest {
         assertTrue(state.isNew)
         assertTrue(state.loaded)
     }
+
+    @Test
+    fun clockTimeAfterAddsMinutes() {
+        val now = millis(2026, Calendar.MARCH, 10, 14, 20)
+        assertEquals(ClockTime(14, 50), clockTimeAfter(now, 30))
+        assertEquals(ClockTime(15, 20), clockTimeAfter(now, 60))
+        assertEquals(ClockTime(16, 20), clockTimeAfter(now, 120))
+    }
+
+    @Test
+    fun clockTimeAfterWrapsMidnight() {
+        val now = millis(2026, Calendar.MARCH, 10, 23, 50)
+        assertEquals(ClockTime(0, 20), clockTimeAfter(now, 30))
+        assertEquals(ClockTime(0, 50), clockTimeAfter(now, 60))
+        assertEquals(ClockTime(1, 50), clockTimeAfter(now, 120))
+    }
+}
+
+private fun millis(year: Int, month: Int, day: Int, hour: Int, minute: Int): Long {
+    return Calendar.getInstance().apply {
+        set(Calendar.YEAR, year)
+        set(Calendar.MONTH, month)
+        set(Calendar.DAY_OF_MONTH, day)
+        set(Calendar.HOUR_OF_DAY, hour)
+        set(Calendar.MINUTE, minute)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }.timeInMillis
 }
